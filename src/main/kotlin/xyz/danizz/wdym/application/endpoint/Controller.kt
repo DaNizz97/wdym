@@ -1,10 +1,6 @@
 package xyz.danizz.wdym.application.endpoint
 
-import org.springframework.web.bind.annotation.CrossOrigin
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import xyz.danizz.wdym.application.config.ConfigProperties
 import xyz.danizz.wdym.data.repository.MemeImagePathRepository
 import xyz.danizz.wdym.domain.model.*
@@ -19,6 +15,7 @@ class Controller(
     private val properties: ConfigProperties,
     private val createGameUseCase: CreateGameUseCase
 ) {
+
     @GetMapping
     fun popa(): ByteArray {
         val path = Paths.get(properties.directory)
