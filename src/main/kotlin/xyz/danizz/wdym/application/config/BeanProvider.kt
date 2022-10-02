@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration
 import xyz.danizz.wdym.data.repository.GameRepositoryImpl
 import xyz.danizz.wdym.domain.usecase.CreateGameUseCase
 import xyz.danizz.wdym.domain.repository.GameRepository
+import xyz.danizz.wdym.domain.usecase.GetAvailableCodeUseCase
 
 @Configuration
 class BeanProvider {
@@ -15,7 +16,15 @@ class BeanProvider {
     }
 
     @Bean
-    fun createGameUseCase(gameRepository: GameRepository): CreateGameUseCase {
-        return CreateGameUseCase(gameRepository)
+    fun createGameUseCase(
+        gameRepository: GameRepository,
+        getAvailableCodeUseCase: GetAvailableCodeUseCase
+    ): CreateGameUseCase {
+        return CreateGameUseCase(gameRepository, getAvailableCodeUseCase)
+    }
+
+    @Bean
+    fun getAvailableCodeUseCase(gameRepository: GameRepository): GetAvailableCodeUseCase {
+        return GetAvailableCodeUseCase(gameRepository)
     }
 }

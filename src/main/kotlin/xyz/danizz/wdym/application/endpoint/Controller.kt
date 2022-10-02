@@ -16,7 +16,7 @@ class Controller(
     private val createGameUseCase: CreateGameUseCase
 ) {
 
-    @GetMapping
+    @GetMapping("/image-test")
     fun popa(): ByteArray {
         val path = Paths.get(properties.directory)
             .resolve(memeImagePathRepository.findById("62d4be2b9bdaef5775a15abe").get().path)

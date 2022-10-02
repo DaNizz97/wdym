@@ -13,11 +13,15 @@ class GameRepositoryImpl : GameRepository {
         storage = ArrayList()
     }
 
-    override fun put(newGame: Game) {
-        storage.add(newGame)
+    override fun put(newGame: Game): Boolean {
+        return storage.add(newGame)
     }
 
     override fun getByCode(code: Int): Game? {
         return storage.find { game -> game.code == code }
+    }
+
+    override fun getAll(): List<Game> {
+        return storage.toList()
     }
 }
