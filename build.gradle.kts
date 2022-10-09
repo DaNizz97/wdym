@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
 
 plugins {
     id("org.springframework.boot") version "2.7.1"
@@ -9,7 +10,7 @@ plugins {
 }
 
 group = "xyz.danizz"
-version = "0.0.1-SNAPSHOT"
+version = getFileVersion()
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
@@ -19,6 +20,7 @@ repositories {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-websocket")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
@@ -37,4 +39,28 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+tasks.named<BootBuildImage>("bootBuildImage") {
+    imageName = "danizz97/wdym-backend:${version}"
+    isPublish = true
+    docker {
+        publishRegistry {
+            val dockerHubUsername: String by project
+            val dockerHubPassword: String by project
+            username = dockerHubUsername
+            password = dockerHubPassword
+        }
+    }
+}
+
+tasks.register("popa") {
+    doLast {
+        val dockerHubUsername: String by project
+        print(dockerHubUsername)
+    }
+}
+
+fun getFileVersion(): String {
+    return "0.1"
 }
