@@ -7,6 +7,6 @@ class JoinPlayerUseCase(
 ) {
     operator fun invoke(gameCode: Int, player: Player) {
         val game = findGameByCodeUseCase(gameCode)
-        game?.addPlayer(player) ?: throw IllegalStateException("Game should exist here")
+        game?.addPlayer(player) ?: throw IllegalStateException("Game with code $gameCode should exist here")
     }
 }
